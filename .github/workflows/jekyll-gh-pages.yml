@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한림병원 린넨류 요청</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="number"] {
+            width: 60px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            float: right;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .quantity-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        .quantity-buttons button {
+            padding: 5px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            table, tr, td {
+                display: block;
+            }
+            th {
+                display: none;
+            }
+            tr {
+                margin-bottom: 10px;
+            }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>한림병원 린넨류 요청</h1>
+    <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+        <table>
+            <tr>
+                <th>품목</th>
+                <th>현재고</th>
+                <th>요청재고</th>
+            </tr>
+            <tr>
+                <td data-label="품목">대시트</td>
+                <td data-label="현재고">
+                    <input type="number" id="대시트_현재고" name="대시트_현재고" min="0">
+                    <div class="quantity-buttons">
+                        <button type="button" onclick="changeQuantity('대시트_현재고', -10)">-10</button>
+                        <button type="button" onclick="changeQuantity('대시트_현재고', -5)">-5</button>
+                        <button type="button" onclick="changeQuantity('대시트_현재고', 5)">+5</button>
+                        <button type="button" onclick="changeQuantity('대시트_현재고', 10)">+10</button>
+                    </div>
+                </td>
+                <td data-label="요청재고">
+                    <input type="number" id="대시트_요청재고" name="대시트_요청재고" min="0">
+                    <div class="quantity-buttons">
+                        <button type="button" onclick="changeQuantity('대시트_요청재고', -10)">-10</button>
+                        <button type="button" onclick="changeQuantity('대시트_요청재고', -5)">-5</button>
+                        <button type="button" onclick="changeQuantity('대시트_요청재고', 5)">+5</button>
+                        <button type="button" onclick="changeQuantity('대시트_요청재고', 10)">+10</button>
+                    </div>
+                </td>
+            </tr>
+            <!-- 여기에 다른 품목들 (반시트, 베갯잇, 이불, 수건, 중환의)을 같은 형식으로 추가 -->
+        </table>
+        <input type="submit" value="요청">
+    </form>
+
+    <script>
+        function changeQuantity(inputId, amount) {
+            const input = document.getElementById(inputId);
+            let value = parseInt(input.value) || 0;
+            value += amount;
+            input.value = value < 0 ? 0 : value;
+        }
+    </script>
+</body>
+</html>
